@@ -90,6 +90,15 @@ export default class SwitchSelector extends Component {
     return options[selected].activeColor || buttonColor;
   }
 
+  _getContainerStyle(){
+    let { selected } = this.state
+    if (selected === -1) {
+      return {}
+    }
+
+    return this.props.selectedButtonContainerStyle
+  }
+
   animate = (value, last) => {
     this.animatedValue.setValue(last);
     Animated.timing(this.animatedValue, {
@@ -143,7 +152,7 @@ export default class SwitchSelector extends Component {
 
     const options = this.props.options.map((element, index) => {
       const is_selected = this.state.selected == index;
-      var containerStyle = is_selected ? selectedButtonContainerStyle : {}
+
       return (
         <TouchableOpacity
           key={index}
@@ -215,7 +224,7 @@ export default class SwitchSelector extends Component {
                 <Animated.View
                   style={[
                     {
-                      ...containerStyle,
+                      ...this._getContainerStyle(),
                       height: hasPadding ? height - (valuePadding * 2) : height,
                       backgroundColor: this.getBgColor(),
                       width:
