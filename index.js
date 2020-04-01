@@ -136,12 +136,14 @@ export default class SwitchSelector extends Component {
       height,
       bold,
       disabled,
-      buttonMargin
+      buttonMargin,
+      selectedButtonContainerStyle
     } = this.props;
+
 
     const options = this.props.options.map((element, index) => {
       const is_selected = this.state.selected == index;
-
+      var containerStyle = is_selected ? selectedButtonContainerStyle : {}
       return (
         <TouchableOpacity
           key={index}
@@ -213,6 +215,7 @@ export default class SwitchSelector extends Component {
                 <Animated.View
                   style={[
                     {
+                      ...containerStyle,
                       height: hasPadding ? height - (valuePadding * 2) : height,
                       backgroundColor: this.getBgColor(),
                       width:
